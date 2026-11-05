@@ -1,0 +1,6 @@
+{
+  "name": "Lost And Found",
+  "description": "Lovely Professional University (LPU) community lost and found portal. Report lost or found property, receive secure resolution codes, connect with peers, and securely resolve cases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

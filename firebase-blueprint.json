@@ -1,0 +1,92 @@
+{
+  "entities": {
+    "Report": {
+      "title": "Report",
+      "description": "Lost and Found report for Lovely Professional University items",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique report ID"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["lost", "found"],
+          "description": "Whether item is lost or found"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Title of the item"
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Category of the item (Electronics, ID Cards, etc.)"
+        },
+        "location": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "LPU campus location where item was lost or found"
+        },
+        "dateTime": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Date and time of incident"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1500,
+          "description": "Detailed description and identifying marks"
+        },
+        "reporterName": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Name or handle of reporting student or staff"
+        },
+        "reporterContact": {
+          "type": "string",
+          "maxLength": 150,
+          "description": "Contact info (phone/email/registration number)"
+        },
+        "secretCode": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Secret resolution code required to resolve this report"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "resolved"],
+          "description": "Current status"
+        },
+        "resolvedAt": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Timestamp when resolved"
+        },
+        "resolvedByNote": {
+          "type": "string",
+          "maxLength": 400,
+          "description": "Resolution handover remarks"
+        },
+        "imageUrl": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Optional image URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["type", "title", "category", "location", "secretCode", "status", "reporterContact"]
+    }
+  },
+  "firestore": {
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Public database of student lost and found reports"
+    }
+  }
+}

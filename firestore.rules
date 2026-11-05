@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidReport(data) {
+      return data.keys().hasAll(['type', 'title', 'category', 'location', 'secretCode', 'status', 'reporterContact']) &&
+             data.type in ['lost', 'found'] &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 120 &&
+             data.category is string && data.category.size() > 0 && data.category.size() <= 60 &&
+             data.location is string && data.location.size() > 0 && data.location.size() <= 120 &&
+             data.secretCode is string && data.secretCode.size() >= 4 && data.secretCode.size() <= 30 &&
+             data.status in ['open', 'resolved'] &&
+             data.reporterContact is string && data.reporterContact.size() > 0 && data.reporterContact.size() <= 150;
+    }
+
+    match /reports/{reportId} {
+      allow list: if true;
+      allow get: if isValidId(reportId);
+      allow create: if isValidId(reportId) &&
+                       isValidReport(request.resource.data) &&
+                       request.resource.data.status == 'open';
+      allow update: if isValidId(reportId) &&
+                       isValidReport(request.resource.data) &&
+                       request.resource.data.secretCode == resource.data.secretCode;
+      allow delete: if false;
+    }
+
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
