@@ -128,8 +128,6 @@ The project is built and deployed with **Google AI Studio** and is live at:
 
 👉 **https://lostandfoundlpu.ai.studio/**
 
-You can also view the source app in AI Studio: https://ai.studio/apps/83dade3b-0ec9-4271-b3fd-d520adba343c
-
 ---
 
 ## 📁 Project Files
